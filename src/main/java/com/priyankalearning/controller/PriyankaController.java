@@ -26,5 +26,9 @@ public class PriyankaController {
         return "Saro";
     }
 
+    @GetMapping("/mybroname")
+    public String sayBroName(){
+        return "Gagan";
+    }
 
 }
