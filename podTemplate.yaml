@@ -7,6 +7,12 @@ spec:
   volumes:
     - name: sharedvolume
       emptyDir: {}
+    - name: kaniko-secret
+      secret:
+        secretName: dockercred
+        items:
+          - key: .dockerconfigjson
+            path: config.json
   serviceAccountName: jenkins
   securityContext:
     runAsUser: 0
@@ -22,18 +28,15 @@ spec:
         limits:
           memory: "1000Mi"
           cpu: "500m"
-    - name: docker
-      image: docker
-      imagePullPolicy: Always
-      ttyEnabled: true
-      command: 'cat'
-      resources:
-        requests:
-          memory: "128Mi"
-          cpu: "500m"
-        limits:
-          memory: "1000Mi"
-          cpu: "500m"
+    - name: kaniko
+      image: gcr.io/kaniko-project/executor:debug
+      command:
+        - sleep
+      args:
+        - 9999999
+      volumeMounts:
+        - name: kaniko-secret
+          mountPath: /kaniko/.docker
     - name: gradle
       image: gradle
       imagePullPolicy: Always

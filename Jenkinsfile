@@ -37,22 +37,14 @@ pipeline {
     stage('Build Image') {
       steps {
         script{
-            container('docker'){
-              sh "ls"
-              sh "docker build -t ${NAME} ."
-              sh "docker tag ${NAME}:latest ${IMAGE_REPO}/${NAME}:${VERSION}"
+            container('kaniko'){
+              sh '''
+              /kaniko/executor --context `pwd` --destination ${IMAGE_REPO}/${NAME}:${VERSION}
+            '''
             }
           }
         }
       }
-
-    stage('Push Image') {
-          steps {
-            withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
-              sh 'docker push ${IMAGE_REPO}/${NAME}:${VERSION}'
-            }
-          }
-        }
 
     stage('Clone/Pull Repo') {
       steps {
