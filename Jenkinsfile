@@ -42,7 +42,20 @@ pipeline {
               /kaniko/executor --context `pwd` --destination ${IMAGE_REPO}/${NAME}:${VERSION}
             '''
             }
-          }
+             }
+        }
+      }
+    
+    stage('Build Image') {
+      steps {
+        script{
+            container('helm'){
+              sh '''
+              helm list
+              helm install ${NAME} charts/priyankalearnings/
+            '''
+            }
+             }
         }
       }
 
