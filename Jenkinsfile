@@ -54,7 +54,7 @@ pipeline {
             container('helm'){
               sh "helm list"
               sh "helm lint ./${HELM_CHART_DIRECTORY}"
-              sh "helm upgrade --wait --timeout 60 --set image.tag=23 ${NAME} ./${HELM_CHART_DIRECTORY} -n ${NAMESPACE}"
+              sh "helm upgrade --set image.tag=23 ${NAME} ./${HELM_CHART_DIRECTORY} -n ${NAMESPACE}"
               sh "helm list | grep ${NAME} -n ${NAMESPACE}"
             }
              }
