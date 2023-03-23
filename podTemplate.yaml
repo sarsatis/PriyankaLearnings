@@ -13,19 +13,19 @@ spec:
         items:
           - key: .dockerconfigjson
             path: config.json
-    - name: vol
-      hostPath:
-        path: /usr/local/bin/helm
+    # - name: vol
+    #   hostPath:
+    #     path: /usr/local/bin/helm
   serviceAccountName: jenkins
   securityContext:
     runAsUser: 0
   containers:
   - name: helm
-    image: "alpine/helm:2.14.0"
+    image: "justinrlee/helm3"
     ttyEnabled: true
-    volumeMounts:
-    - name: vol
-      mountPath: /usr/local/bin/helm
+    # volumeMounts:
+    # - name: vol
+    #   mountPath: /usr/local/bin/helm
     command:
     - sleep
     args:
