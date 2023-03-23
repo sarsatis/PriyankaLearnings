@@ -17,6 +17,10 @@ spec:
   securityContext:
     runAsUser: 0
   containers:
+    - name: helm
+      image: 'alpine/helm:2.14.0'
+      ttyEnabled: true
+      command: 'cat'
     - name: kaniko
       image: gcr.io/kaniko-project/executor:debug
       command:
