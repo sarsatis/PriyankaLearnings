@@ -25,28 +25,28 @@ pipeline {
       }
     }
 
-    // stage('Gradle build'){
-    //   steps{
-    //     script{
-    //     container(name: 'gradle'){
-    //        sh "gradle clean build"
-    //     }
-    //     }
-    //   }
+    stage('Gradle build'){
+      steps{
+        script{
+        container(name: 'gradle'){
+           sh "gradle clean build"
+        }
+        }
+      }
 
-    // }
+    }
 
-    // stage('Build Image') {
-    //   steps {
-    //     script{
-    //         container('kaniko'){
-    //           sh '''
-    //           /kaniko/executor --context `pwd` --destination ${IMAGE_REPO}/${NAME}:${VERSION}
-    //         '''
-    //         }
-    //          }
-    //     }
-    //   }
+    stage('Build Image') {
+      steps {
+        script{
+            container('kaniko'){
+              sh '''
+              /kaniko/executor --context `pwd` --destination ${IMAGE_REPO}/${NAME}:${VERSION}
+            '''
+            }
+             }
+        }
+      }
     
     stage('helm install') {
       steps {
@@ -54,7 +54,7 @@ pipeline {
             container('helm'){
               sh "helm list"
               sh "helm lint ./${HELM_CHART_DIRECTORY}"
-              sh "helm upgrade --set image.tag=23 ${NAME} ./${HELM_CHART_DIRECTORY} -n ${NAMESPACE}"
+              sh "helm upgrade --set image.tag=${VERSION} ${NAME} ./${HELM_CHART_DIRECTORY} -n ${NAMESPACE}"
               sh "helm list"
             }
              }
