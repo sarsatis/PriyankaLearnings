@@ -51,10 +51,10 @@ pipeline {
       steps {
         script{
             container('helm'){
-              sh 'helm list'
+              sh 'helm list' -n jenkins
               sh "helm lint ./${HELM_CHART_DIRECTORY}"
-              sh "helm upgrade --wait --timeout 60 --set image.tag=${VERSION} ${NAME} ./${HELM_CHART_DIRECTORY}"
-              sh "helm list | grep ${NAME}"
+              sh "helm upgrade --wait --timeout 60 --set image.tag=${VERSION} ${NAME} ./${HELM_CHART_DIRECTORY}" -n jenkins
+              sh "helm list | grep ${NAME}" -n jenkins
             }
              }
         }
