@@ -20,4 +20,9 @@ public class PriyankaController {
     public String sayMyName(){
         return "Sarthak";
     }
+
+    @GetMapping("/mydashname")
+    public String sayDashName(){
+        return "Saro";
+    }
 }
