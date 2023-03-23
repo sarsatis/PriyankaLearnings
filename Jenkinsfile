@@ -12,6 +12,7 @@ pipeline {
     NAME = "priyankalearnings"
     VERSION = "${env.BUILD_ID}"
     IMAGE_REPO = "sarthaksatish"
+    HELM_CHART_DIRECTORY = "charts/priyankalearnings"
     //GITHUB_TOKEN = credentials('githubpat')
   }
 
@@ -50,10 +51,10 @@ pipeline {
       steps {
         script{
             container('helm'){
-              sh '''
-              helm list
-              helm install ${NAME} charts/priyankalearnings/
-            '''
+              sh 'helm list'
+              sh "helm lint ./${HELM_CHART_DIRECTORY}"
+              sh "helm upgrade --wait --timeout 60 --set image.tag=${VERSION} ${NAME} ./${HELM_CHART_DIRECTORY}"
+              sh "helm list | grep ${NAME}"
             }
              }
         }
