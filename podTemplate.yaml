@@ -17,31 +17,46 @@ spec:
   securityContext:
     runAsUser: 0
   containers:
-    - name: helm
-      image: 'alpine/helm:2.14.0'
-      ttyEnabled: true
-      command: 'cat'
-    - name: kaniko
-      image: gcr.io/kaniko-project/executor:debug
-      command:
-        - sleep
-      args:
-        - 9999999
-      volumeMounts:
-        - name: kaniko-secret
-          mountPath: /kaniko/.docker
-    - name: gradle
-      image: gradle
-      imagePullPolicy: Always
-      ttyEnabled: true
-      command:
+  - name: helm
+    image: "alpine/helm:2.14.0"
+    ttyEnabled: true
+    command: 
+    - "cat"
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "500m"
+      limits:
+        memory: "1000Mi"
+        cpu: "500m"
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:debug
+    command:
       - sleep
-      args:
+    args:
+      - "9999999"
+    volumeMounts:
+      - name: kaniko-secret
+        mountPath: /kaniko/.docker
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "500m"
+      limits:
+        memory: "1000Mi"
+        cpu: "500m"
+  - name: gradle
+    image: gradle
+    imagePullPolicy: Always
+    ttyEnabled: true
+    command:
+      - sleep
+    args:
       - 99d
-      resources:
-        requests:
-          memory: "128Mi"
-          cpu: "500m"
-        limits:
-          memory: "1000Mi"
-          cpu: "500m"
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "500m"
+      limits:
+        memory: "1000Mi"
+        cpu: "500m"
