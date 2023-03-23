@@ -15,4 +15,9 @@ public class PriyankaController {
     public String sayBye(){
         return "Bye";
     }
+
+    @GetMapping("/myname")
+    public String sayMyName(){
+        return "Sarthak";
+    }
 }
