@@ -17,17 +17,6 @@ spec:
   securityContext:
     runAsUser: 0
   containers:
-    - name: jnlp
-      image: larribas/jenkins-jnlp-slave-with-ssh:1.0.0
-      imagePullPolicy: Always
-      args: "${computer.jnlpmac} ${computer.name}"
-      resources:
-        requests:
-          memory: "128Mi"
-          cpu: "500m"
-        limits:
-          memory: "1000Mi"
-          cpu: "500m"
     - name: kaniko
       image: gcr.io/kaniko-project/executor:debug
       command:
