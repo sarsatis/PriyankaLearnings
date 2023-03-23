@@ -9,7 +9,7 @@ pipeline {
   }
 
   environment {
-    NAME = "PriyankaLearnings"
+    NAME = "priyankalearnings"
     VERSION = "${env.BUILD_ID}"
     IMAGE_REPO = "sarthaksatish"
     //GITHUB_TOKEN = credentials('githubpat')
