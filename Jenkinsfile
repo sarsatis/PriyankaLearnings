@@ -52,7 +52,6 @@ pipeline {
       steps {
         script{
             container('helm'){
-              sh 'helm init --skip-refresh'
               sh "helm list"
               sh "helm lint ./${HELM_CHART_DIRECTORY}"
               sh "helm upgrade --wait --timeout 60 --set image.tag=23 ${NAME} ./${HELM_CHART_DIRECTORY} -n ${NAMESPACE}"

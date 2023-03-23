@@ -9,7 +9,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: jenkins
-  namespace: jenkins
+  namespace: kube-system
 
 ---
 
@@ -24,6 +24,9 @@ rules:
   verbs: ["get", "watch", "list"]
 - apiGroups: [""]
   resources: ["pods"]
+  verbs: ["get", "watch", "list","create"]
+- apiGroups: ["apps"]
+  resources: ["deployments"]
   verbs: ["get", "watch", "list","create"]
 - apiGroups: [""]
   resources: ["pods/portforward"]
