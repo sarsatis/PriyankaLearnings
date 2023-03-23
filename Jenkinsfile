@@ -37,24 +37,22 @@ pipeline {
     stage('Build Image') {
       steps {
         script{
-            container(name: 'kaniko',shell:'/busybox/sh'){
-              // sh "cp ${WORKSPACE}/Dockerfile ."
+            container('docker'){
               sh "ls"
-              withCredentials([file(credentialsId: 'docker-credentials', variable: 'DOCKER_CONFIG_JSON')]) {
-                withEnv(['PATH+EXTRA=/busybox']) {
-                  sh'''#!/busybox/sh
-                  cp $DOCKER_CONFIG_JSON /kaniko/.docker/config.json
-                  /kaniko/executor --force --dockerfile Dockerfile --context `pwd` --destination ${IMAGE_REPO}/${NAME}:${VERSION}
-                  '''
-                }
-              }
-              // kaniko.buildImage dockerfile: 'Dockerfile',
-              // image: "${NAME}", tags: "${IMAGE_REPO}/${NAME}:${VERSION}"
-              // sh "docker tag ${NAME}:latest ${IMAGE_REPO}/${NAME}:${VERSION}"
+              sh "docker build -t ${NAME} ."
+              sh "docker tag ${NAME}:latest ${IMAGE_REPO}/${NAME}:${VERSION}"
             }
           }
         }
       }
+
+    stage('Push Image') {
+          steps {
+            withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
+              sh 'docker push ${IMAGE_REPO}/${NAME}:${VERSION}'
+            }
+          }
+        }
 
     stage('Clone/Pull Repo') {
       steps {
