@@ -30,7 +30,8 @@ spec:
       image: gradle
       imagePullPolicy: Always
       ttyEnabled: true
-      command: 'cat'
+      command:
+      - 'cat'
       resources:
         requests:
           memory: "128Mi"
