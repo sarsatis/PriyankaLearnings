@@ -20,8 +20,10 @@ spec:
   - name: helm
     image: "alpine/helm:2.14.0"
     ttyEnabled: true
-    command: 
-    - "cat"
+    command:
+    - sleep
+    args:
+    - "9999999"
     resources:
       requests:
         memory: "128Mi"
