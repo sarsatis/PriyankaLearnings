@@ -46,7 +46,7 @@ pipeline {
         }
       }
     
-    stage('Build Image') {
+    stage('helm install') {
       steps {
         script{
             container('helm'){
