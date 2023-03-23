@@ -31,7 +31,9 @@ spec:
       imagePullPolicy: Always
       ttyEnabled: true
       command:
-      - 'cat'
+      - sleep
+      args:
+      - 99d
       resources:
         requests:
           memory: "128Mi"
