@@ -11,10 +11,22 @@ spec:
   securityContext:
     runAsUser: 0
   containers:
+    - name: jnlp
+      image: larribas/jenkins-jnlp-slave-with-ssh:1.0.0
+      imagePullPolicy: Always
+      args: "${computer.jnlpmac} ${computer.name}"
+      resources:
+        requests:
+          memory: "128Mi"
+          cpu: "500m"
+        limits:
+          memory: "1000Mi"
+          cpu: "500m"
     - name: docker
       image: docker
       imagePullPolicy: Always
-      tty: true
+      ttyEnabled: true
+      command: 'cat'
       resources:
         requests:
           memory: "128Mi"
@@ -25,7 +37,8 @@ spec:
     - name: gradle
       image: gradle
       imagePullPolicy: Always
-      tty: true
+      ttyEnabled: true
+      command: 'cat'
       resources:
         requests:
           memory: "128Mi"
