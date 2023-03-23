@@ -13,13 +13,12 @@ spec:
         items:
           - key: .dockerconfigjson
             path: config.json
+    - name: vol
+      hostPath:
+        path: /usr/local/bin/helm
   serviceAccountName: jenkins
   securityContext:
     runAsUser: 0
-  volumes:
-  - name: vol
-    hostPath:
-       path: /usr/local/bin/helm
   containers:
   - name: helm
     image: "alpine/helm:2.14.0"
