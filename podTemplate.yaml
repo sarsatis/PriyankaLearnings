@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    jenkins: jenkins-pipeline
+spec:
+  volumes:
+    - name: sharedvolume
+      emptyDir: {}
+    - name: jenkins-docker-cfg
+      secretName: mysecret
+      subPath: config.json
+      optional: true
+  serviceAccountName: myjenkins
+  securityContext:
+    runAsUser: 0
+  containers:
+    # - name: jnlp
+    #   image: mirantis/jnlp-slave
+    #   workingDir: /apps/kubedata/jenkins-agent/
+    #   ttyEnabled: true
+    #   volumeMounts:
+    #     - mountPath: "apps/kubedata/jenkins-agent"
+    #       name: sharedvolume
+    #   resources:
+    #     requests:
+    #       memory: "128Mi"
+    #       cpu: "500m"
+    #     limits:
+    #       memory: "1000Mi"
+    #       cpu: "500m"
+    - name: kaniko
+      image: gcr.io/kaniko-project/executor:debug-v0.19.0
+      workingDir: /apps/kubedata/jenkins-agent/
+      imagePullPolicy: Always
+      volumeMounts:
+        - name: jenkins-docker-cfg
+          mountPath: /kaniko/.docker
+      command:
+        - /busybox/cat
+      tty: true
+      resources:
+        requests:
+          memory: "128Mi"
+          cpu: "500m"
+        limits:
+          memory: "1000Mi"
+          cpu: "500m"
+    - name: gradle
+      image: gradle
+      workingDir: /apps/kubedata/jenkins-agent/
+      imagePullPolicy: Always
+      tty: true
+      resources:
+        requests:
+          memory: "128Mi"
+          cpu: "500m"
+        limits:
+          memory: "1000Mi"
+          cpu: "500m"
