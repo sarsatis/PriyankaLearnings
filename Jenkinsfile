@@ -75,9 +75,9 @@ pipeline {
                             echo "sa ${encodedPassword}"
                             sh "git config --global user.email 'jenkins@ci.com'"
                             sh "git remote set-url origin https://${username}:${encodedPassword}@github.com/${username}/helm-charts.git"
-                            sh 'sed -i "s#tag:.*#tag: ${VERSION}#g" values.yaml'
-                            sh 'cat values.yaml'
-                            sh 'git add values.yaml'
+                            sh 'sed -i "s#tag:.*#tag: ${VERSION}#g" values-dev.yaml'
+                            sh 'cat values-dev.yaml'
+                            sh 'git add values-dev.yaml'
                             sh 'git commit -am "Updated image version for Build - $VERSION"'
                             echo 'push started'
                             sh "git push -u origin main"
