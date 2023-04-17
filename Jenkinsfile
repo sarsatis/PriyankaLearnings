@@ -76,16 +76,36 @@ pipeline {
                             sh "git config --global user.email 'jenkins@ci.com'"
                             sh "git remote set-url origin https://${username}:${encodedPassword}@github.com/${username}/helm-charts.git"
                             sh 'sed -i "s#tag:.*#tag: ${VERSION}#g" values-dev.yaml'
+                            sh "git checkout -b ${NAME}-${env.BUILD_ID}"
                             sh 'cat values-dev.yaml'
                             sh 'git add values-dev.yaml'
                             sh 'git commit -am "Updated image version for Build - $VERSION"'
                             echo 'push started'
-                            sh "git push -u origin main"
+                            sh "git push origin ${NAME}-${env.BUILD_ID}"
                         }
                         echo 'push complete'
                     }
                 }
             }
+        }
+
+        stage('Raise PR') {
+          steps {
+             script {
+                withCredentials([usernamePassword(credentialsId: 'githubpat',
+                      usernameVariable: 'username',
+                      passwordVariable: 'password')]){
+                    encodedPassword = URLEncoder.encode("$password",'UTF-8')
+                    echo 'In Pr'
+                    container(name: 'python') {
+                    sh "printenv"
+                    sh "pip3 install -r requirements.txt"
+                    sh "python3 createprandaddlabels.py"
+                    }
+                      }
+                // sh "bash pr.sh"
+            }
+          }
         }
     }
 }
