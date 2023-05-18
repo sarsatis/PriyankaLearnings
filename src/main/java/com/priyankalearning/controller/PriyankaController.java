@@ -3,30 +3,30 @@ package com.priyankalearning.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/app1")
+@RestController
 public class PriyankaController {
 
-    @GetMapping("/hello")
+    @GetMapping("/app1/hello")
     public String sayHello(){
         return "Hello";
     }
 
-    @GetMapping("/bye")
+    @GetMapping("/app1/bye")
     public String sayBye(){
         return "Bye";
     }
 
-    @GetMapping("/myname")
+    @GetMapping("/app1/myname")
     public String sayMyName(){
         return "Sarthak";
     }
 
-    @GetMapping("/mydashname")
+    @GetMapping("/app1/mydashname")
     public String sayDashName(){
         return "Saro";
     }
 
-    @GetMapping("/mybroname")
+    @GetMapping("/app1/mybroname")
     public String sayBroName(){
         return "Gagan";
     }

@@ -27,10 +27,10 @@ spec:
       resources:
         requests:
           memory: "128Mi"
-          cpu: "500m"
+          cpu: "2"
         limits:
-          memory: "1000Mi"
-          cpu: "500m"
+          memory: "500Mi"
+          cpu: "2"
     - name: kaniko
       image: gcr.io/kaniko-project/executor:debug
       command:
@@ -43,10 +43,10 @@ spec:
       resources:
         requests:
           memory: "128Mi"
-          cpu: "500m"
+          cpu: "2"
         limits:
-          memory: "1000Mi"
-          cpu: "500m"
+          memory: "500Mi"
+          cpu: "2"
     - name: gradle
       image: gradle
       imagePullPolicy: Always
@@ -58,10 +58,10 @@ spec:
       resources:
         requests:
           memory: "128Mi"
-          cpu: "500m"
+          cpu: "2"
         limits:
-          memory: "1000Mi"
-          cpu: "500m"
+          memory: "500Mi"
+          cpu: "2"
     - name: python
       image: python:latest
       imagePullPolicy: Always
@@ -72,7 +72,7 @@ spec:
       resources:
         requests:
           memory: "128Mi"
-          cpu: "500m"
+          cpu: "2"
         limits:
-          memory: "1000Mi"
-          cpu: "500m"
+          memory: "500Mi"
+          cpu: "2"
