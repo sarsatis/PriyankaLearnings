@@ -9,7 +9,7 @@ pipeline {
     }
     environment {
         NAME = "priyankalearnings"
-        VERSION = "${env.BUILD_ID}"
+        VERSION = "${env.GIT_COMMIT}"
         IMAGE_REPO = "sarthaksatish"
         NAMESPACE = "jenkins"
         HELM_CHART_DIRECTORY = "charts/priyankalearnings"
