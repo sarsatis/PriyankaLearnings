@@ -57,8 +57,15 @@ pipeline {
         stage('Clone/Pull Repo') {
             steps {
                 script {
-                    sh 'git clone https://github.com/sarsatis/helm-charts'
-                    sh 'ls -ltr'
+                    if (fileExists('helm-charts')) {
+                        echo 'Cloned repo already exists - Pulling latest changes'
+                        dir("helm-charts") {
+                            sh 'git pull'
+                        }
+                    } else {
+                        sh 'git clone https://github.com/sarsatis/helm-charts'
+                        sh 'ls -ltr'
+                    }
                 }
             }
         }
