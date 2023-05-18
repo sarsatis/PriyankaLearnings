@@ -8,7 +8,7 @@ public class PriyankaController {
 
     @GetMapping("/app1/hello")
     public String sayHello(){
-        return "Hi";
+        return "Sar";
     }
 
     @GetMapping("/app1/bye")
