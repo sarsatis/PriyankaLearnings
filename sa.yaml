@@ -1,0 +1,4 @@
+"# Default values for springboot-demoweb.\n# This is a YAML-formatted file.\n# Declare\
+  \ variables to be passed into your templates.\n\nreplicaCount: 1\n\nappName: priyankalearnings\n\
+  \nimage:\n  repository: sarthaksatish/priyankalearnings\n  pullPolicy: IfNotPresent\n\
+  \  # Overrides the image tag whose default is the chart appVersion.\n  tag: 1\n\n"
