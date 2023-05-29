@@ -190,11 +190,5 @@ class CreatePRAndAddLabel:
         return content
 
 
-    def label_pull_requests(self, pr_number):
-        print('https://ghe.service.group/devops-pipelines/helm-charts-ocp/issues/{pr_number}/labels')
-        response = requests.post(f'https://ghe.service.group/devops-pipelines/helm-charts-ocp/issues/{pr_number}/labels', headers=self.label_headers, data=json.dumps(self.label_data))
-        print(response)
-
-
 if __name__ == "__main__":
     CreatePRAndAddLabel()
