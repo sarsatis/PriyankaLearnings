@@ -190,11 +190,6 @@ class CreatePRAndAddLabel:
         return content
 
 
-    @staticmethod
-    def pretty_pr_url(url):
-        return url.replace("api.ghe.service.group/repos/", "ghe.service.group/").replace("/pulls/", "/pull/")
-
-
     def label_pull_requests(self, pr_number):
         print('https://ghe.service.group/devops-pipelines/helm-charts-ocp/issues/{pr_number}/labels')
         response = requests.post(f'https://ghe.service.group/devops-pipelines/helm-charts-ocp/issues/{pr_number}/labels', headers=self.label_headers, data=json.dumps(self.label_data))
