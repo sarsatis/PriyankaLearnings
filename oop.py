@@ -79,26 +79,17 @@ class CreatePRAndAddLabel:
                 print(f"Inside PR")
                 pr = repo.create_pull(head=self.branch_name,base=repo.default_branch,title=title,body=title)
                 print(f"PR Raised")
-                self.add_labels(pr)
+                self.add_labels(repo, pr)
             except (GithubException, socket.timeout, urllib3.exceptions.ReadTimeoutError, ReadTimeout) as e:
                 print(f"PR creation timeout - ({repo.name}) - sleeping 60s")
                 print(f"Details: {e}")
 
 
-    def add_labels(self, pr):
-        label_headers = {
-                    'Accept': 'application/vnd.github+json',
-                    'Authorization': self.authorization,
-                    'Content-Type': 'application/json',
-                }
-
-        label_data = {
-                    "labels": [self.app_name,"dev"]
-                    }
-
-        print('https://api.github.com/repos/sarsatis/helm-charts/issues/{pr.number}/labels')
-        response = requests.post(f'https://api.github.com/repos/sarsatis/helm-charts/issues/{pr.number}/labels', headers=label_headers, data=json.dumps(label_data))
-        print(response)
+    def add_labels(self, repo, pr):
+        labels = [self.app_name,"dev"]
+        issue = repo.get_issue(number=pr.number)
+        issue.set_labels(*labels)
+        print(f"Added Labels to PR")
 
 
     def commit_to_branch(self, repo, file_content, new_file_content,file_path):
