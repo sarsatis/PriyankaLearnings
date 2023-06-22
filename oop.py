@@ -60,15 +60,15 @@ class CreatePRAndAddLabel:
 
         self.create_pr(repo, pr_created)
 
-        if self.app_name in 'priyankalearnings':
-            repo = self.fetch_repository()
-            file_content, pr_created, file_content_decoded = self.check_if_pr_exists_and_fetch_file_content(repo,self.file_path1)
-            new_file_content = getattr(self, "update_image_tag")(file_content=file_content_decoded, variable_key = "priyankaLearningsImageTag")
-            print(f"print new image value \n {new_file_content}")
-            self.check_if_branch_exists(repo)
-            print(f" commit id {repo.get_branch(self.branch_name).commit}")
-            print(f" commit sha {repo.get_branch(self.branch_name).commit.sha}")
-            self.commit_to_branch(repo, file_content, new_file_content,self.file_path1)
+        # if self.app_name in 'priyankalearnings':
+        #     repo = self.fetch_repository()
+        #     file_content, pr_created, file_content_decoded = self.check_if_pr_exists_and_fetch_file_content(repo,self.file_path1)
+        #     new_file_content = getattr(self, "update_image_tag")(file_content=file_content_decoded, variable_key = "priyankaLearningsImageTag")
+        #     print(f"print new image value \n {new_file_content}")
+        #     self.check_if_branch_exists(repo)
+        #     print(f" commit id {repo.get_branch(self.branch_name).commit}")
+        #     print(f" commit sha {repo.get_branch(self.branch_name).commit.sha}")
+        #     self.commit_to_branch(repo, file_content, new_file_content,self.file_path1)
 
 
     def create_pr(self, repo, pr_created):
