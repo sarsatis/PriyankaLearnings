@@ -24,13 +24,6 @@ spec:
         - sleep
       args:
         - "9999999"
-      resources:
-        requests:
-          memory: "128Mi"
-          cpu: "1"
-        limits:
-          memory: "500Mi"
-          cpu: "2"
     - name: kaniko
       image: gcr.io/kaniko-project/executor:debug
       command:
@@ -40,13 +33,6 @@ spec:
       volumeMounts:
         - name: kaniko-secret
           mountPath: /kaniko/.docker
-      resources:
-        requests:
-          memory: "128Mi"
-          cpu: "1"
-        limits:
-          memory: "500Mi"
-          cpu: "2"
     - name: gradle
       image: gradle
       imagePullPolicy: Always
@@ -55,13 +41,6 @@ spec:
         - sleep
       args:
         - 99d
-      resources:
-        requests:
-          memory: "128Mi"
-          cpu: "1"
-        limits:
-          memory: "500Mi"
-          cpu: "2"
     - name: python
       image: python:latest
       imagePullPolicy: Always
@@ -69,10 +48,3 @@ spec:
         - sleep
         - "1000"
       tty: true
-      resources:
-        requests:
-          memory: "128Mi"
-          cpu: "1"
-        limits:
-          memory: "500Mi"
-          cpu: "2"
