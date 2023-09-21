@@ -108,7 +108,8 @@ pipeline {
                     container(name: 'python') {
                     sh "printenv"
                     sh "pip3 install -r requirements.txt"
-                    sh "python3 oop.py"
+                    //sh "python3 oop.py"
+                    sh "python3 createprandaddlabels.py"
                     }
                       }
                 // sh "bash pr.sh"
