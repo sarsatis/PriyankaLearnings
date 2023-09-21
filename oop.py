@@ -13,9 +13,9 @@ import fileinput
 class CreatePRAndAddLabel:
 
     API_TOKEN = os.getenv('GITHUB_TOKEN_PSW')
-    app_name = os.getenv('appName')
+    app_name = os.getenv('NAME')
     branch_name = os.getenv('GIT_BRANCH')
-    image_tag = os.getenv('buildahImageTag')    
+    image_tag = os.getenv('VERSION')    
 
     # API_TOKEN=""
     # app_name="priyankapractice"
@@ -70,6 +70,16 @@ class CreatePRAndAddLabel:
         #     print(f" commit sha {repo.get_branch(self.branch_name).commit.sha}")
         #     self.commit_to_branch(repo, file_content, new_file_content,self.file_path1)
 
+
+    def fetch_repository(self):
+        try:
+            repo = self.github_client.get_repo(self.application_manifest_repo)
+            print("Client Initiation Complete")
+        except UnknownObjectException:
+            error = f"[SKIPPING] Repo doesn't exist or have no access-{self.application_manifest_repo}"
+            self.errored_messages.append(error)
+            print(error)
+        return repo
 
     def create_pr(self, repo, pr_created):
         title = f"{self.git_commit_prefix}: {self.branch_name} - Update image tag for application {self.app_name}"
@@ -148,17 +158,6 @@ class CreatePRAndAddLabel:
         print(f"print old image value \n {file_content_decoded}")
         return file_content,pr_created,file_content_decoded
 
-
-    def fetch_repository(self):
-        try:
-            repo = self.github_client.get_repo(self.application_manifest_repo)
-            print("Client Initiation Complete")
-        except UnknownObjectException:
-            error = f"[SKIPPING] Repo doesn't exist or have no access-{self.application_manifest_repo}"
-            self.errored_messages.append(error)
-            print(error)
-        return repo
-
             
     @staticmethod
     def update_image_tag(**kwargs):
@@ -174,7 +173,7 @@ class CreatePRAndAddLabel:
             print(f"content_lines[i] = {content_lines[i]}")
             if ':' in content_lines[i] and kwargs["variable_key"] in content_lines[i]:
                 print(f"Update line content {content_lines[i]}")
-                content_lines[i] = f"  {kwargs['variable_key']}: 14"
+                content_lines[i] = f"  {kwargs['variable_key']}: {self.branch_name} "
             i +=1
         content = "\n".join(content_lines)
         content = "\n".join(list(content.splitlines()))
