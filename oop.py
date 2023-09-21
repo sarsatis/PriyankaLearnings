@@ -173,7 +173,7 @@ class CreatePRAndAddLabel:
             print(f"content_lines[i] = {content_lines[i]}")
             if ':' in content_lines[i] and kwargs["variable_key"] in content_lines[i]:
                 print(f"Update line content {content_lines[i]}")
-                content_lines[i] = f"  {kwargs['variable_key']}: {self.branch_name} "
+                content_lines[i] = f"  {kwargs['variable_key']}: {os.getenv('VERSION')}"
             i +=1
         content = "\n".join(content_lines)
         content = "\n".join(list(content.splitlines()))
