@@ -11,7 +11,7 @@ pipeline {
         NAME = "priyankalearnings"
         // VERSION = "${env.GIT_COMMIT}"
         VERSION = "${env.BUILD_ID}"
-        IMAGE_REPO = "sarthaksatish"
+        IMAGE_REPO = "gagan2104"
         NAMESPACE = "jenkins"
         HELM_CHART_DIRECTORY = "charts/priyankalearnings"
         GITHUB_TOKEN = credentials('githubpat')
