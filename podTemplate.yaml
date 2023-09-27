@@ -13,7 +13,7 @@ spec:
         items:
           - key: .dockerconfigjson
             path: config.json
-  serviceAccountName: jenkins-admin
+  serviceAccountName: jenkins
   securityContext:
     runAsUser: 0
   containers:
